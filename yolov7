@@ -1,0 +1,956 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "machine_shape": "hm",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU",
+    "gpuClass": "premium"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/makaila12341/yolov7-custom-sth/blob/main/yolov7\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "KGDaeNTLd_1c",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "b37d1c36-f336-4984-cee7-e3637d99b356"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Mounted at /content/gdrive\n"
+          ]
+        }
+      ],
+      "source": [
+        "from google.colab import drive\n",
+        "drive.mount(\"/content/gdrive\")\n",
+        "import os"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%pwd"
+      ],
+      "metadata": {
+        "id": "X2dRazc-KBZT",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 36
+        },
+        "outputId": "a21c9adb-24f8-4f85-b574-f7f40c920ed7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'/content'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 2
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%cd gdrive/MyDrive/yolov7/"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "dnvSkWU3c2So",
+        "outputId": "78c0df60-9c4f-4226-ad11-a6cacc744b99"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[Errno 2] No such file or directory: 'gdrive/MyDrive/yolov7/'\n",
+            "/content/gdrive/MyDrive/yolov7\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!python test.py --data data/custom_data.yaml --img 640 --batch 32  --weights runs/train/yolov7_640_val28/weights/best.pt --name yolov7_640_val "
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Hgj__EV9_lN8",
+        "outputId": "c09b789c-0825-4aeb-95de-1df1b11d0eea"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "python3: can't open file 'test.py': [Errno 2] No such file or directory\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from utils datasets.py"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 130
+        },
+        "id": "VXpxFzqTK3Sq",
+        "outputId": "ae7cd7a1-ba90-4840-9087-420979b35159"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-27-98c2f44b8f2f>\"\u001b[0;36m, line \u001b[0;32m1\u001b[0m\n\u001b[0;31m    from utils datasets.py\u001b[0m\n\u001b[0m               ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid syntax\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!python --epochs 10 --img 640 640 "
+      ],
+      "metadata": {
+        "id": "vEBtpgcPkxyp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!wget https://github.com/wongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "f5K2nAodlCNI",
+        "outputId": "5779ee60-0e24-4812-8c75-a4d68b4982a9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--2023-01-20 16:43:42--  https://github.com/wongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt\n",
+            "Resolving github.com (github.com)... 140.82.121.4\n",
+            "Connecting to github.com (github.com)|140.82.121.4|:443... connected.\n",
+            "HTTP request sent, awaiting response... 302 Found\n",
+            "Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/511187726/c0e9f375-a42b-45d5-9e96-3156476cf121?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230120%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230120T164343Z&X-Amz-Expires=300&X-Amz-Signature=2702291c84e34fdc9f4852503ebf4e916796487a7ef7f3950dd4b3c4e38d2891&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=511187726&response-content-disposition=attachment%3B%20filename%3Dyolov7x.pt&response-content-type=application%2Foctet-stream [following]\n",
+            "--2023-01-20 16:43:43--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/511187726/c0e9f375-a42b-45d5-9e96-3156476cf121?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230120%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230120T164343Z&X-Amz-Expires=300&X-Amz-Signature=2702291c84e34fdc9f4852503ebf4e916796487a7ef7f3950dd4b3c4e38d2891&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=511187726&response-content-disposition=attachment%3B%20filename%3Dyolov7x.pt&response-content-type=application%2Foctet-stream\n",
+            "Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.108.133, ...\n",
+            "Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.110.133|:443... connected.\n",
+            "HTTP request sent, awaiting response... 200 OK\n",
+            "Length: 143099649 (136M) [application/octet-stream]\n",
+            "Saving to: ‘yolov7x.pt.3’\n",
+            "\n",
+            "yolov7x.pt.3        100%[===================>] 136.47M  6.11MB/s    in 17s     \n",
+            "\n",
+            "2023-01-20 16:44:06 (7.85 MB/s) - ‘yolov7x.pt.3’ saved [143099649/143099649]\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "%pip install wandb"
+      ],
+      "metadata": {
+        "id": "tX4drlE-krOe",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "b15bc66e-024b-4f94-950b-0eb6f7b1d6b1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/\n",
+            "Collecting wandb\n",
+            "  Downloading wandb-0.13.9-py2.py3-none-any.whl (2.0 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2.0/2.0 MB\u001b[0m \u001b[31m25.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting docker-pycreds>=0.4.0\n",
+            "  Downloading docker_pycreds-0.4.0-py2.py3-none-any.whl (9.0 kB)\n",
+            "Requirement already satisfied: PyYAML in /usr/local/lib/python3.8/dist-packages (from wandb) (6.0)\n",
+            "Requirement already satisfied: psutil>=5.0.0 in /usr/local/lib/python3.8/dist-packages (from wandb) (5.4.8)\n",
+            "Collecting GitPython>=1.0.0\n",
+            "  Downloading GitPython-3.1.30-py3-none-any.whl (184 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m184.0/184.0 KB\u001b[0m \u001b[31m24.7 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: setuptools in /usr/local/lib/python3.8/dist-packages (from wandb) (57.4.0)\n",
+            "Requirement already satisfied: protobuf!=4.21.0,<5,>=3.12.0 in /usr/local/lib/python3.8/dist-packages (from wandb) (3.19.6)\n",
+            "Collecting setproctitle\n",
+            "  Downloading setproctitle-1.3.2-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (31 kB)\n",
+            "Requirement already satisfied: typing-extensions in /usr/local/lib/python3.8/dist-packages (from wandb) (4.4.0)\n",
+            "Requirement already satisfied: requests<3,>=2.0.0 in /usr/local/lib/python3.8/dist-packages (from wandb) (2.25.1)\n",
+            "Collecting pathtools\n",
+            "  Downloading pathtools-0.1.2.tar.gz (11 kB)\n",
+            "  Preparing metadata (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "Requirement already satisfied: appdirs>=1.4.3 in /usr/local/lib/python3.8/dist-packages (from wandb) (1.4.4)\n",
+            "Collecting sentry-sdk>=1.0.0\n",
+            "  Downloading sentry_sdk-1.13.0-py2.py3-none-any.whl (177 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m177.4/177.4 KB\u001b[0m \u001b[31m23.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: Click!=8.0.0,>=7.0 in /usr/local/lib/python3.8/dist-packages (from wandb) (7.1.2)\n",
+            "Requirement already satisfied: six>=1.4.0 in /usr/local/lib/python3.8/dist-packages (from docker-pycreds>=0.4.0->wandb) (1.15.0)\n",
+            "Collecting gitdb<5,>=4.0.1\n",
+            "  Downloading gitdb-4.0.10-py3-none-any.whl (62 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m62.7/62.7 KB\u001b[0m \u001b[31m8.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.8/dist-packages (from requests<3,>=2.0.0->wandb) (2022.12.7)\n",
+            "Requirement already satisfied: idna<3,>=2.5 in /usr/local/lib/python3.8/dist-packages (from requests<3,>=2.0.0->wandb) (2.10)\n",
+            "Requirement already satisfied: chardet<5,>=3.0.2 in /usr/local/lib/python3.8/dist-packages (from requests<3,>=2.0.0->wandb) (4.0.0)\n",
+            "Requirement already satisfied: urllib3<1.27,>=1.21.1 in /usr/local/lib/python3.8/dist-packages (from requests<3,>=2.0.0->wandb) (1.24.3)\n",
+            "Collecting urllib3<1.27,>=1.21.1\n",
+            "  Downloading urllib3-1.26.14-py2.py3-none-any.whl (140 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m140.6/140.6 KB\u001b[0m \u001b[31m19.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting smmap<6,>=3.0.1\n",
+            "  Downloading smmap-5.0.0-py3-none-any.whl (24 kB)\n",
+            "Building wheels for collected packages: pathtools\n",
+            "  Building wheel for pathtools (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
+            "  Created wheel for pathtools: filename=pathtools-0.1.2-py3-none-any.whl size=8806 sha256=3a7113664041fff9b649aae2f608e2bb7856d0f364f10e3920e386d667aa0ec3\n",
+            "  Stored in directory: /root/.cache/pip/wheels/4c/8e/7e/72fbc243e1aeecae64a96875432e70d4e92f3d2d18123be004\n",
+            "Successfully built pathtools\n",
+            "Installing collected packages: pathtools, urllib3, smmap, setproctitle, docker-pycreds, sentry-sdk, gitdb, GitPython, wandb\n",
+            "  Attempting uninstall: urllib3\n",
+            "    Found existing installation: urllib3 1.24.3\n",
+            "    Uninstalling urllib3-1.24.3:\n",
+            "      Successfully uninstalled urllib3-1.24.3\n",
+            "Successfully installed GitPython-3.1.30 docker-pycreds-0.4.0 gitdb-4.0.10 pathtools-0.1.2 sentry-sdk-1.13.0 setproctitle-1.3.2 smmap-5.0.0 urllib3-1.26.14 wandb-0.13.9\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!python train.py --device 0 --batch-size 16 --epochs 50 --img 640 640 --data data/custom_data.yaml --hyp data/hyp.scratch.custom.yaml --cfg cfg/training/yolov7x-custom.yaml --weights yolov7x.pt --name yolov7_640_val"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "riFV8FpmmBS1",
+        "outputId": "432ef3c0-2ec4-4ffe-9d48-0fdb4a156158"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "YOLOR 🚀 2023-1-5 torch 1.13.1+cu116 CUDA:0 (A100-SXM4-40GB, 40536.1875MB)\n",
+            "\n",
+            "Namespace(adam=False, artifact_alias='latest', batch_size=16, bbox_interval=-1, bucket='', cache_images=False, cfg='cfg/training/yolov7x-custom.yaml', data='data/custom_data.yaml', device='0', entity=None, epochs=50, evolve=False, exist_ok=False, freeze=[0], global_rank=-1, hyp='data/hyp.scratch.custom.yaml', image_weights=False, img_size=[640, 640], label_smoothing=0.0, linear_lr=False, local_rank=-1, multi_scale=False, name='yolov7_640_val', noautoanchor=False, nosave=False, notest=False, project='runs/train', quad=False, rect=False, resume=False, save_dir='runs/train/yolov7_640_val36', save_period=-1, single_cls=False, sync_bn=False, total_batch_size=16, upload_dataset=False, v5_metric=False, weights='yolov7x.pt', workers=8, world_size=1)\n",
+            "\u001b[34m\u001b[1mtensorboard: \u001b[0mStart with 'tensorboard --logdir runs/train', view at http://localhost:6006/\n",
+            "2023-01-22 23:59:23.265827: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.\n",
+            "\u001b[34m\u001b[1mhyperparameters: \u001b[0mlr0=0.01, lrf=0.1, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=0.05, cls=0.3, cls_pw=1.0, obj=0.7, obj_pw=1.0, iou_t=0.2, anchor_t=4.0, fl_gamma=0.0, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.2, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, paste_in=0.0, loss_ota=1\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: (1) Create a W&B account\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: (2) Use an existing W&B account\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: (3) Don't visualize my results\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Enter your choice: 2\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: You chose 'Use an existing W&B account'\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Logging into wandb.ai. (Learn how to deploy a W&B server locally: https://wandb.me/wandb-server)\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: You can find your API key in your browser here: https://wandb.ai/authorize\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Paste an API key from your profile and hit enter, or press ctrl+c to quit: \n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Appending key for api.wandb.ai to your netrc file: /root/.netrc\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Tracking run with wandb version 0.13.9\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Run data is saved locally in \u001b[35m\u001b[1m/content/gdrive/MyDrive/yolov7/wandb/run-20230122_235950-yb79jx5k\u001b[0m\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Run \u001b[1m`wandb offline`\u001b[0m to turn off syncing.\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Syncing run \u001b[33myolov7_640_val36\u001b[0m\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: ⭐️ View project at \u001b[34m\u001b[4mhttps://wandb.ai/science-research/YOLOR\u001b[0m\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: 🚀 View run at \u001b[34m\u001b[4mhttps://wandb.ai/science-research/YOLOR/runs/yb79jx5k\u001b[0m\n",
+            "\n",
+            "                 from  n    params  module                                  arguments                     \n",
+            "  0                -1  1      1160  models.common.Conv                      [3, 40, 3, 1]                 \n",
+            "  1                -1  1     28960  models.common.Conv                      [40, 80, 3, 2]                \n",
+            "  2                -1  1     57760  models.common.Conv                      [80, 80, 3, 1]                \n",
+            "  3                -1  1    115520  models.common.Conv                      [80, 160, 3, 2]               \n",
+            "  4                -1  1     10368  models.common.Conv                      [160, 64, 1, 1]               \n",
+            "  5                -2  1     10368  models.common.Conv                      [160, 64, 1, 1]               \n",
+            "  6                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            "  7                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            "  8                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            "  9                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            " 10                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            " 11                -1  1     36992  models.common.Conv                      [64, 64, 3, 1]                \n",
+            " 12[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 13                -1  1    103040  models.common.Conv                      [320, 320, 1, 1]              \n",
+            " 14                -1  1         0  models.common.MP                        []                            \n",
+            " 15                -1  1     51520  models.common.Conv                      [320, 160, 1, 1]              \n",
+            " 16                -3  1     51520  models.common.Conv                      [320, 160, 1, 1]              \n",
+            " 17                -1  1    230720  models.common.Conv                      [160, 160, 3, 2]              \n",
+            " 18          [-1, -3]  1         0  models.common.Concat                    [1]                           \n",
+            " 19                -1  1     41216  models.common.Conv                      [320, 128, 1, 1]              \n",
+            " 20                -2  1     41216  models.common.Conv                      [320, 128, 1, 1]              \n",
+            " 21                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 22                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 23                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 24                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 25                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 26                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 27[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 28                -1  1    410880  models.common.Conv                      [640, 640, 1, 1]              \n",
+            " 29                -1  1         0  models.common.MP                        []                            \n",
+            " 30                -1  1    205440  models.common.Conv                      [640, 320, 1, 1]              \n",
+            " 31                -3  1    205440  models.common.Conv                      [640, 320, 1, 1]              \n",
+            " 32                -1  1    922240  models.common.Conv                      [320, 320, 3, 2]              \n",
+            " 33          [-1, -3]  1         0  models.common.Concat                    [1]                           \n",
+            " 34                -1  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 35                -2  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 36                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 37                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 38                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 39                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 40                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 41                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 42[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 43                -1  1   1640960  models.common.Conv                      [1280, 1280, 1, 1]            \n",
+            " 44                -1  1         0  models.common.MP                        []                            \n",
+            " 45                -1  1    820480  models.common.Conv                      [1280, 640, 1, 1]             \n",
+            " 46                -3  1    820480  models.common.Conv                      [1280, 640, 1, 1]             \n",
+            " 47                -1  1   3687680  models.common.Conv                      [640, 640, 3, 2]              \n",
+            " 48          [-1, -3]  1         0  models.common.Concat                    [1]                           \n",
+            " 49                -1  1    328192  models.common.Conv                      [1280, 256, 1, 1]             \n",
+            " 50                -2  1    328192  models.common.Conv                      [1280, 256, 1, 1]             \n",
+            " 51                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 52                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 53                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 54                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 55                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 56                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 57[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 58                -1  1   1640960  models.common.Conv                      [1280, 1280, 1, 1]            \n",
+            " 59                -1  1  11887360  models.common.SPPCSPC                   [1280, 640, 1]                \n",
+            " 60                -1  1    205440  models.common.Conv                      [640, 320, 1, 1]              \n",
+            " 61                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          \n",
+            " 62                43  1    410240  models.common.Conv                      [1280, 320, 1, 1]             \n",
+            " 63          [-1, -2]  1         0  models.common.Concat                    [1]                           \n",
+            " 64                -1  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 65                -2  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 66                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 67                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 68                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 69                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 70                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 71                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 72[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 73                -1  1    410240  models.common.Conv                      [1280, 320, 1, 1]             \n",
+            " 74                -1  1     51520  models.common.Conv                      [320, 160, 1, 1]              \n",
+            " 75                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          \n",
+            " 76                28  1    102720  models.common.Conv                      [640, 160, 1, 1]              \n",
+            " 77          [-1, -2]  1         0  models.common.Concat                    [1]                           \n",
+            " 78                -1  1     41216  models.common.Conv                      [320, 128, 1, 1]              \n",
+            " 79                -2  1     41216  models.common.Conv                      [320, 128, 1, 1]              \n",
+            " 80                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 81                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 82                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 83                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 84                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 85                -1  1    147712  models.common.Conv                      [128, 128, 3, 1]              \n",
+            " 86[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            " 87                -1  1    102720  models.common.Conv                      [640, 160, 1, 1]              \n",
+            " 88                -1  1         0  models.common.MP                        []                            \n",
+            " 89                -1  1     25920  models.common.Conv                      [160, 160, 1, 1]              \n",
+            " 90                -3  1     25920  models.common.Conv                      [160, 160, 1, 1]              \n",
+            " 91                -1  1    230720  models.common.Conv                      [160, 160, 3, 2]              \n",
+            " 92      [-1, -3, 73]  1         0  models.common.Concat                    [1]                           \n",
+            " 93                -1  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 94                -2  1    164352  models.common.Conv                      [640, 256, 1, 1]              \n",
+            " 95                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 96                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 97                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 98                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            " 99                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            "100                -1  1    590336  models.common.Conv                      [256, 256, 3, 1]              \n",
+            "101[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            "102                -1  1    410240  models.common.Conv                      [1280, 320, 1, 1]             \n",
+            "103                -1  1         0  models.common.MP                        []                            \n",
+            "104                -1  1    103040  models.common.Conv                      [320, 320, 1, 1]              \n",
+            "105                -3  1    103040  models.common.Conv                      [320, 320, 1, 1]              \n",
+            "106                -1  1    922240  models.common.Conv                      [320, 320, 3, 2]              \n",
+            "107      [-1, -3, 59]  1         0  models.common.Concat                    [1]                           \n",
+            "108                -1  1    656384  models.common.Conv                      [1280, 512, 1, 1]             \n",
+            "109                -2  1    656384  models.common.Conv                      [1280, 512, 1, 1]             \n",
+            "110                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "111                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "112                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "113                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "114                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "115                -1  1   2360320  models.common.Conv                      [512, 512, 3, 1]              \n",
+            "116[-1, -3, -5, -7, -8]  1         0  models.common.Concat                    [1]                           \n",
+            "117                -1  1   1639680  models.common.Conv                      [2560, 640, 1, 1]             \n",
+            "118                87  1    461440  models.common.Conv                      [160, 320, 3, 1]              \n",
+            "119               102  1   1844480  models.common.Conv                      [320, 640, 3, 1]              \n",
+            "120               117  1   7375360  models.common.Conv                      [640, 1280, 3, 1]             \n",
+            "121   [118, 119, 120]  1     49406  models.yolo.IDetect                     [2, [[12, 16, 19, 36, 40, 28], [36, 75, 76, 55, 72, 146], [142, 110, 192, 243, 459, 401]], [320, 640, 1280]]\n",
+            "Model Summary: 467 layers, 70821830 parameters, 70821830 gradients\n",
+            "\n",
+            "Transferred 630/644 items from yolov7x.pt\n",
+            "Scaled weight_decay = 0.0005\n",
+            "Optimizer groups: 108 .bias, 108 conv.weight, 111 other\n",
+            "\u001b[34m\u001b[1mtrain: \u001b[0mScanning 'data/train/labels.cache' images and labels... 280 found, 1 missing, 0 empty, 0 corrupted: 100% 281/281 [00:00<?, ?it/s]\n",
+            "\u001b[34m\u001b[1mval: \u001b[0mScanning 'data/val/labels.cache' images and labels... 86 found, 0 missing, 0 empty, 0 corrupted: 100% 86/86 [00:00<?, ?it/s]\n",
+            "\n",
+            "\u001b[34m\u001b[1mautoanchor: \u001b[0mAnalyzing anchors... anchors/target = 6.04, Best Possible Recall (BPR) = 1.0000\n",
+            "Image sizes 640 train, 640 test\n",
+            "Using 8 dataloader workers\n",
+            "Logging results to runs/train/yolov7_640_val36\n",
+            "Starting training for 50 epochs...\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      0/49     12.5G   0.07902   0.02484   0.02003    0.1239        79       640: 100% 18/18 [01:02<00:00,  3.45s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95:   0% 0/3 [00:00<?, ?it/s]/usr/local/lib/python3.8/dist-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3190.)\n",
+            "  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:08<00:00,  2.95s/it]\n",
+            "                 all          86         307       0.161        0.12      0.0388     0.00701\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      1/49     14.3G   0.06941   0.02417   0.01651    0.1101        41       640: 100% 18/18 [00:13<00:00,  1.31it/s]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:01<00:00,  2.56it/s]\n",
+            "                 all          86         307       0.312       0.507       0.333       0.104\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      2/49     14.3G   0.05785   0.02406   0.01281   0.09472        56       640: 100% 18/18 [00:22<00:00,  1.23s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:01<00:00,  2.95it/s]\n",
+            "                 all          86         307        0.48       0.587       0.503       0.149\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      3/49     14.3G   0.05152   0.02185   0.01056   0.08394        71       640: 100% 18/18 [00:24<00:00,  1.35s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  3.43it/s]\n",
+            "                 all          86         307       0.289       0.615       0.306      0.0862\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      4/49     14.3G   0.04761   0.01914  0.008634   0.07538        44       640: 100% 18/18 [00:24<00:00,  1.38s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:03<00:00,  1.04s/it]\n",
+            "                 all          86         307       0.697       0.516         0.7       0.255\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      5/49     14.3G   0.04689   0.01701  0.007814   0.07171        38       640: 100% 18/18 [00:23<00:00,  1.32s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  3.98it/s]\n",
+            "                 all          86         307        0.75       0.781       0.797       0.338\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      6/49     14.3G   0.04845   0.01534  0.006881   0.07067        66       640: 100% 18/18 [00:22<00:00,  1.24s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  3.98it/s]\n",
+            "                 all          86         307       0.821       0.885       0.843       0.386\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      7/49     14.3G   0.05072   0.01405  0.005355   0.07012        46       640: 100% 18/18 [00:31<00:00,  1.76s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.19it/s]\n",
+            "                 all          86         307       0.877       0.891        0.89       0.388\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      8/49     14.3G   0.04652     0.013   0.00445   0.06396        44       640: 100% 18/18 [00:19<00:00,  1.11s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.15it/s]\n",
+            "                 all          86         307       0.755       0.819       0.767       0.347\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "      9/49     14.3G   0.05503   0.01204  0.004225   0.07129        46       640: 100% 18/18 [00:23<00:00,  1.33s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.02it/s]\n",
+            "                 all          86         307       0.398        0.78       0.535       0.198\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     10/49     14.3G   0.05661   0.01322  0.004681   0.07451        80       640: 100% 18/18 [00:24<00:00,  1.36s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.23it/s]\n",
+            "                 all          86         307        0.57         0.5       0.528       0.243\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     11/49     14.3G   0.05006   0.01382  0.004442   0.06832        80       640: 100% 18/18 [00:27<00:00,  1.52s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.37it/s]\n",
+            "                 all          86         307       0.803       0.623       0.795       0.249\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     12/49     14.3G   0.04747    0.0129  0.003966   0.06434        50       640: 100% 18/18 [00:27<00:00,  1.54s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.53it/s]\n",
+            "                 all          86         307       0.585       0.854       0.689       0.174\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     13/49     14.3G   0.04437    0.0129  0.003721     0.061        78       640: 100% 18/18 [00:23<00:00,  1.32s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.49it/s]\n",
+            "                 all          86         307       0.871        0.86       0.912       0.387\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     14/49     14.3G    0.0474    0.0151  0.003687   0.06618        61       640: 100% 18/18 [00:23<00:00,  1.32s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.06it/s]\n",
+            "                 all          86         307        0.93       0.791       0.896       0.364\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     15/49     14.3G   0.04567   0.01449  0.003537    0.0637        61       640: 100% 18/18 [00:25<00:00,  1.44s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.48it/s]\n",
+            "                 all          86         307       0.991        0.78       0.917       0.434\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     16/49     14.3G   0.04331   0.01411  0.003222   0.06064        47       640: 100% 18/18 [00:26<00:00,  1.48s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.51it/s]\n",
+            "                 all          86         307       0.906       0.882       0.945       0.522\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     17/49     14.3G   0.03898    0.0152  0.003174   0.05735        73       640: 100% 18/18 [00:22<00:00,  1.27s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.46it/s]\n",
+            "                 all          86         307       0.775       0.933        0.87       0.538\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     18/49     14.3G   0.03913   0.01344  0.003235    0.0558       102       640: 100% 18/18 [00:27<00:00,  1.52s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.57it/s]\n",
+            "                 all          86         307       0.929       0.934       0.975       0.569\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     19/49     14.3G   0.03711   0.01355  0.002847   0.05351        45       640: 100% 18/18 [00:22<00:00,  1.23s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.02it/s]\n",
+            "                 all          86         307       0.799       0.932       0.906       0.386\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     20/49     14.3G    0.0378   0.01253   0.00277    0.0531        60       640: 100% 18/18 [00:23<00:00,  1.29s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.68it/s]\n",
+            "                 all          86         307       0.746       0.832       0.795       0.562\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     21/49     14.3G   0.03696   0.01378  0.003274   0.05401        39       640: 100% 18/18 [00:26<00:00,  1.45s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.60it/s]\n",
+            "                 all          86         307       0.988       0.825       0.936       0.619\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     22/49     14.3G   0.03284   0.01256  0.002702    0.0481        43       640: 100% 18/18 [00:31<00:00,  1.76s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.60it/s]\n",
+            "                 all          86         307       0.945       0.951       0.973        0.67\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     23/49     14.3G   0.03196   0.01123  0.002298   0.04549        28       640: 100% 18/18 [00:22<00:00,  1.25s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.57it/s]\n",
+            "                 all          86         307       0.947       0.927       0.983       0.763\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     24/49     14.3G   0.02901   0.01085  0.002161   0.04201        55       640: 100% 18/18 [00:21<00:00,  1.21s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.07it/s]\n",
+            "                 all          86         307       0.984        0.92       0.979       0.676\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     25/49     14.3G   0.02704   0.01021  0.001921   0.03916        70       640: 100% 18/18 [00:19<00:00,  1.09s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.46it/s]\n",
+            "                 all          86         307       0.981       0.971        0.99       0.726\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     26/49     14.3G    0.0265  0.009957  0.001634   0.03809        34       640: 100% 18/18 [00:33<00:00,  1.85s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.54it/s]\n",
+            "                 all          86         307       0.998       0.939        0.99       0.717\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     27/49     14.3G   0.02397  0.009866  0.001599   0.03544        76       640: 100% 18/18 [00:24<00:00,  1.36s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.51it/s]\n",
+            "                 all          86         307       0.982       0.971        0.99       0.832\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     28/49     14.3G   0.03015  0.009666  0.001564   0.04138        56       640: 100% 18/18 [00:24<00:00,  1.37s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.56it/s]\n",
+            "                 all          86         307       0.981        0.95       0.989       0.724\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     29/49     14.3G   0.02788  0.009721  0.001821   0.03942        62       640: 100% 18/18 [00:24<00:00,  1.34s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.11it/s]\n",
+            "                 all          86         307           1       0.929       0.981       0.735\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     30/49     14.3G   0.02805   0.01047  0.001564   0.04008        75       640: 100% 18/18 [00:21<00:00,  1.17s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.45it/s]\n",
+            "                 all          86         307       0.962       0.971       0.989       0.636\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     31/49     14.3G   0.02787   0.01024  0.001599   0.03971        42       640: 100% 18/18 [00:35<00:00,  1.97s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.85it/s]\n",
+            "                 all          86         307       0.979       0.977        0.99       0.796\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     32/49     14.3G   0.02506  0.009429  0.001528   0.03601        60       640: 100% 18/18 [00:21<00:00,  1.17s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.61it/s]\n",
+            "                 all          86         307       0.978       0.948       0.977       0.768\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     33/49     14.3G   0.02292  0.009119  0.001729   0.03377        36       640: 100% 18/18 [00:28<00:00,  1.57s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.58it/s]\n",
+            "                 all          86         307       0.978       0.955       0.979       0.693\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     34/49     14.3G   0.02424  0.008892  0.001433   0.03457        55       640: 100% 18/18 [00:23<00:00,  1.31s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.17it/s]\n",
+            "                 all          86         307       0.917       0.962       0.974       0.689\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     35/49     14.3G    0.0264  0.009081  0.001327   0.03681        56       640: 100% 18/18 [00:30<00:00,  1.70s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.63it/s]\n",
+            "                 all          86         307        0.98       0.979       0.991       0.785\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     36/49     14.3G   0.02283  0.008732  0.001345   0.03291        65       640: 100% 18/18 [00:24<00:00,  1.34s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.60it/s]\n",
+            "                 all          86         307       0.983       0.971       0.992       0.758\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     37/49     14.3G   0.02129  0.009045  0.001263    0.0316        57       640: 100% 18/18 [00:21<00:00,  1.20s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.56it/s]\n",
+            "                 all          86         307       0.977       0.983       0.992       0.779\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     38/49     14.3G   0.02142  0.008643  0.001175   0.03124        65       640: 100% 18/18 [00:23<00:00,  1.30s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.58it/s]\n",
+            "                 all          86         307       0.976       0.987        0.99       0.834\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     39/49     14.3G   0.02124  0.008166  0.001193    0.0306        46       640: 100% 18/18 [00:34<00:00,  1.91s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.29it/s]\n",
+            "                 all          86         307       0.974       0.994       0.991       0.719\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     40/49     14.3G   0.01952  0.008501  0.001154   0.02917        48       640: 100% 18/18 [00:22<00:00,  1.27s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.57it/s]\n",
+            "                 all          86         307       0.981       0.983       0.978       0.816\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     41/49     14.3G   0.01799  0.008202  0.001145   0.02734        58       640: 100% 18/18 [00:24<00:00,  1.37s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.62it/s]\n",
+            "                 all          86         307       0.979       0.986       0.985        0.85\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     42/49     14.3G   0.01776  0.008177 0.0009685    0.0269        73       640: 100% 18/18 [00:25<00:00,  1.39s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.55it/s]\n",
+            "                 all          86         307       0.979       0.986       0.988       0.862\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     43/49     14.3G   0.01667  0.008372 0.0008879   0.02593        66       640: 100% 18/18 [00:30<00:00,  1.71s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.86it/s]\n",
+            "                 all          86         307       0.979       0.987       0.989       0.868\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     44/49     14.3G   0.01549  0.007653 0.0008231   0.02396        75       640: 100% 18/18 [00:23<00:00,  1.29s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:02<00:00,  1.20it/s]\n",
+            "                 all          86         307       0.979       0.989       0.991       0.869\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     45/49     14.3G   0.01491  0.007413 0.0007963   0.02312        46       640: 100% 18/18 [00:19<00:00,  1.11s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.66it/s]\n",
+            "                 all          86         307       0.979       0.983       0.991       0.866\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     46/49     14.3G   0.01602  0.007326 0.0007044   0.02405        58       640: 100% 18/18 [00:21<00:00,  1.22s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.64it/s]\n",
+            "                 all          86         307       0.981       0.983       0.992       0.821\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     47/49     14.3G   0.01651   0.00725 0.0008185   0.02458        57       640: 100% 18/18 [00:29<00:00,  1.62s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.66it/s]\n",
+            "                 all          86         307       0.981       0.987        0.99       0.841\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     48/49     14.3G   0.01723  0.006958 0.0008598   0.02505        62       640: 100% 18/18 [00:22<00:00,  1.23s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:00<00:00,  4.67it/s]\n",
+            "                 all          86         307       0.981       0.987        0.99       0.862\n",
+            "\n",
+            "     Epoch   gpu_mem       box       obj       cls     total    labels  img_size\n",
+            "     49/49     14.3G   0.01449  0.006594 0.0008461   0.02193        43       640: 100% 18/18 [00:22<00:00,  1.25s/it]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:03<00:00,  1.11s/it]\n",
+            "                 all          86         307        0.98       0.987       0.991        0.88\n",
+            "Sea Turtle Hatchling          86         180       0.991       0.989       0.992       0.877\n",
+            "          Ghost Crab          86         127       0.969       0.984        0.99       0.883\n",
+            "50 epochs completed in 0.440 hours.\n",
+            "\n",
+            "Optimizer stripped from runs/train/yolov7_640_val36/weights/last.pt, 142.1MB\n",
+            "Optimizer stripped from runs/train/yolov7_640_val36/weights/best.pt, 142.1MB\n",
+            "Images sizes do not match. This will causes images to be display incorrectly in the UI.\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Waiting for W&B process to finish... \u001b[32m(success).\u001b[0m\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: \n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Run history:\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:      metrics/mAP_0.5 ▁▃▄▃▇▇▇▆▅▇▆▇▇█▇█▇███████████████████████\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: metrics/mAP_0.5:0.95 ▁▂▂▂▄▄▄▄▃▃▂▄▄▅▅▆▅▆▆▇▇▇█▇▆▇▇▇▇▇▇█▇███████\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:    metrics/precision ▁▂▄▂▆▇▇▆▄▆▅▇█▇▆▇▆███████████████████████\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       metrics/recall ▁▄▅▅▆▇▇▇▄▅▇▇▆▇██▇▇██████████████████████\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/box_loss █▇▆▅▅▅▅▄▆▅▅▄▄▄▄▄▄▃▃▃▂▂▂▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/cls_loss █▇▅▅▄▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/obj_loss ███▇▅▄▄▃▄▄▃▃▄▄▄▄▃▄▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/box_loss █▇▆▅▄▄▃▄▄▄▄▄▄▃▃▃▄▂▂▂▂▂▁▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/cls_loss █▇▆▅▄▃▃▃▂▃▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/obj_loss ▅▆█▇▅▄▅▄▃▃▃▃▃▄▂▂▂▃▂▂▁▂▁▂▁▁▁▁▂▂▂▂▂▁▂▂▁▁▂▂\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr0 ▁▂▂▃▄▄▄▅▆▆▆▇▇▇█████████▇▇▇▇▆▆▆▅▅▄▄▄▄▃▃▃▃\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr1 ▁▂▂▃▄▄▄▅▆▆▆▇▇▇█████████▇▇▇▇▆▆▆▅▅▄▄▄▄▃▃▃▃\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr2 ████▇▇▇▇▇▇▆▆▆▆▆▆▅▅▅▅▅▄▄▄▄▄▄▃▃▃▃▃▂▂▂▂▂▁▁▁\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: \n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Run summary:\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:      metrics/mAP_0.5 0.99071\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: metrics/mAP_0.5:0.95 0.87989\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:    metrics/precision 0.97987\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       metrics/recall 0.98657\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/box_loss 0.01449\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/cls_loss 0.00085\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:       train/obj_loss 0.00659\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/box_loss 0.0371\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/cls_loss 0.00483\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:         val/obj_loss 0.02176\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr0 0.00091\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr1 0.00091\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m:                x/lr2 0.01101\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: \n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: 🚀 View run \u001b[33myolov7_640_val36\u001b[0m at: \u001b[34m\u001b[4mhttps://wandb.ai/science-research/YOLOR/runs/yb79jx5k\u001b[0m\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Synced 5 W&B file(s), 342 media file(s), 1 artifact file(s) and 0 other file(s)\n",
+            "\u001b[34m\u001b[1mwandb\u001b[0m: Find logs at: \u001b[35m\u001b[1m./wandb/run-20230122_235950-yb79jx5k/logs\u001b[0m\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "KrXK-hs0YrLI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!python test.py --data data/custom_data.yaml --img 640 --batch 32  --weights runs/train/yolov7_640_val36/weights/best.pt --name yolov7_640_val"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LL6z07eiE2fy",
+        "outputId": "672743be-1e5c-4714-f6fb-759e398f11a4"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Namespace(augment=False, batch_size=32, conf_thres=0.001, data='data/custom_data.yaml', device='', exist_ok=False, img_size=640, iou_thres=0.65, name='yolov7_640_val', no_trace=False, project='runs/test', save_conf=False, save_hybrid=False, save_json=False, save_txt=False, single_cls=False, task='val', v5_metric=False, verbose=False, weights=['runs/train/yolov7_640_val36/weights/best.pt'])\n",
+            "YOLOR 🚀 2023-1-5 torch 1.13.1+cu116 CUDA:0 (A100-SXM4-40GB, 40536.1875MB)\n",
+            "\n",
+            "Fusing layers... \n",
+            "IDetect.fuse\n",
+            "Model Summary: 362 layers, 70789182 parameters, 0 gradients\n",
+            " Convert model to Traced-model... \n",
+            " traced_script_module saved! \n",
+            " model is traced! \n",
+            "\n",
+            "/usr/local/lib/python3.8/dist-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3190.)\n",
+            "  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]\n",
+            "\u001b[34m\u001b[1mval: \u001b[0mScanning 'data/val/labels.cache' images and labels... 86 found, 0 missing, 0 empty, 0 corrupted: 100% 86/86 [00:00<?, ?it/s]\n",
+            "               Class      Images      Labels           P           R      mAP@.5  mAP@.5:.95: 100% 3/3 [00:08<00:00,  2.68s/it]\n",
+            "                 all          86         307        0.98       0.987        0.99       0.879\n",
+            "Sea Turtle Hatchling          86         180       0.991       0.989       0.991       0.875\n",
+            "          Ghost Crab          86         127       0.969       0.984       0.989       0.882\n",
+            "Speed: 3.8/1.1/4.9 ms inference/NMS/total per 640x640 image at batch-size 32\n",
+            "Results saved to runs/test/yolov7_640_val10\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "PxCxzT_8VLQ5",
+        "outputId": "7d507cf7-707e-4e7d-fbc9-9c5c8321cbfe"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Namespace(agnostic_nms=False, augment=False, classes=None, conf_thres=0.25, device='', exist_ok=False, img_size=640, iou_thres=0.45, name='exp', no_trace=False, nosave=False, project='runs/detect', save_conf=False, save_txt=False, source='0', update=False, view_img=False, weights='yolov7.pt')\n",
+            "YOLOR 🚀 2023-1-5 torch 1.13.1+cu116 CUDA:0 (A100-SXM4-40GB, 40536.1875MB)\n",
+            "\n",
+            "error: refs/tags/v0.1 does not point to a valid object!\n",
+            "Traceback (most recent call last):\n",
+            "  File \"/content/gdrive/MyDrive/yolov7/utils/google_utils.py\", line 26, in attempt_download\n",
+            "    assets = [x['name'] for x in response['assets']]  # release assets\n",
+            "KeyError: 'assets'\n",
+            "\n",
+            "During handling of the above exception, another exception occurred:\n",
+            "\n",
+            "Traceback (most recent call last):\n",
+            "  File \"detect.py\", line 215, in <module>\n",
+            "    detect()\n",
+            "  File \"detect.py\", line 45, in detect\n",
+            "    model = attempt_load(weights, map_location=device)  # load FP32 model\n",
+            "  File \"/content/gdrive/MyDrive/yolov7/models/experimental.py\", line 251, in attempt_load\n",
+            "    attempt_download(w)\n",
+            "  File \"/content/gdrive/MyDrive/yolov7/utils/google_utils.py\", line 31, in attempt_download\n",
+            "    tag = subprocess.check_output('git tag', shell=True).decode().split()[-1]\n",
+            "IndexError: list index out of range\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!python detect.py --weights runs/train/yolov7_640_val36/weights/best.pt  --img-size 640 --save-txt  --source data/Fair/Test.jpeg\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fjBBJnmwGI-8",
+        "outputId": "b2f17297-f891-412e-83ba-f9582340a929"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Namespace(agnostic_nms=False, augment=False, classes=None, conf_thres=0.25, device='', exist_ok=False, img_size=640, iou_thres=0.45, name='exp', no_trace=False, nosave=False, project='runs/detect', save_conf=False, save_txt=True, source='data/Fair/Test.jpeg', update=False, view_img=False, weights=['runs/train/yolov7_640_val36/weights/best.pt'])\n",
+            "YOLOR 🚀 2023-2-2 torch 1.13.1+cu116 CUDA:0 (Tesla T4, 15109.875MB)\n",
+            "\n",
+            "Fusing layers... \n",
+            "IDetect.fuse\n",
+            "Model Summary: 362 layers, 70789182 parameters, 0 gradients\n",
+            " Convert model to Traced-model... \n",
+            " traced_script_module saved! \n",
+            " model is traced! \n",
+            "\n",
+            "/usr/local/lib/python3.8/dist-packages/torch/functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3190.)\n",
+            "  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]\n",
+            "10 Sea Turtle Hatchlings, Done. (30.0ms) Inference, (1.4ms) NMS\n",
+            " The image with the result is saved in: runs/detect/exp84/Test.jpeg\n",
+            "Done. (0.678s)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "runs/train/yolov7x-custom9/weights/last.pt --return --save-txt"
+      ],
+      "metadata": {
+        "id": "lFTmGAuBGsnG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import cv2\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "label = [0.516391, 0.501225, 0.0554534, 0.0661765]\n",
+        "img = cv2.imread('15.JPG')\n",
+        "\n",
+        "H, W, _ = img.shape\n",
+        "#object = [int(label[0]*W/2), int(label[1]*H/2), int(label[2]*W), int(label[3]*H)]\n",
+        "object = [int(label[0]*W), int(label[1]*H), int(label[2]*W), int(label[3]*H)]\n",
+        "x,y,w,h = object\n",
+        "plt.subplot(1,2,1)\n",
+        "plt.imshow(img)\n",
+        "plt.subplot(1,2,2)\n",
+        "#plt.imshow(img[y:y+h, x:x+w])\n",
+        "plt.imshow(img[y-h//2:y+h//2, x-w//2:x+w//2])\n",
+        "plt.show()\n",
+        "\n",
+        "print (H,W,w,h)\n",
+        "\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "qyZ3oIf85oo5",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 205
+        },
+        "outputId": "6ebf2fd3-9f78-47be-a2db-33a108ee52e5"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 432x288 with 2 Axes>"
+            ],
+            "image/png": "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\n"
+          },
+          "metadata": {
+            "needs_background": "light"
+          }
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2448 3264 180 162\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "mvu8AdIPjbCz"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
